@@ -1,0 +1,53 @@
+.login-card{
+
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background: rgba(50, 253, 224, 0);
+    border-radius: 18px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(28, 119, 105, 0.218);
+    margin-top: 60px;
+  
+
+}
+
+.login-card form{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+  
+}
+.login-card  h1{
+    background:linear-gradient(90deg,rgb(93, 93, 93), #256464);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+.login-card form input{
+    margin-bottom: 14px;
+    width: 250px;
+    background: rgba(50, 253, 224, 0);
+    border-radius: 4px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(28, 119, 105, 0.218);
+}
+.login-btn{
+    width: 100px;
+    margin:auto;
+    background: rgba(50, 253, 224, 0);
+    border-radius: 4px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(28, 119, 105, 0.555);
+    color: white;
+}

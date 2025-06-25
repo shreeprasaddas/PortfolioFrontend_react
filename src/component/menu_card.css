@@ -1,0 +1,58 @@
+.menu_card{
+    position: fixed;
+    z-index: 6;
+    top: 60px;
+    left: -4px;
+    display: flex;
+    flex-direction: column;
+    height: 352px;
+    width: 223px;
+    border:2px solid black;
+    align-items: center;
+    justify-content: center;
+
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.09);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border: 1px solid rgba(255, 255, 255, 0.28);
+transition-duration: 1s;
+animation: menuTrans 1s;
+transition-property: left;
+    
+}
+.menu_card .menu_option{
+    text-decoration: none;
+    margin: 14px;
+    width: 119px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(172, 172, 172);
+/* From https://css.glass */
+    background: rgba(0, 0, 0, 0);
+    border-radius: 6px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid #0e87874d;
+}
+
+
+@keyframes menuTrans{
+    from{
+        opacity: 0;
+        left: -232px;
+        
+    }
+    to{
+        opacity: 1;
+        left: -4px;
+       
+
+    }
+}
