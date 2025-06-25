@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+ 
+    <link rel="stylesheet" href="Assets/css/index.css">
+    <link rel="stylesheet" href="Assets/css/login.css">
+    <style>
+        spline-viewer{
+            position:absolute;
+            top:0;
+            bottom:0;
+            z-index: -1;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="login-background">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/FgbG1w86-Zjeq1Mu/scene.splinecode"></spline-viewer>
+    </div>
+    <div class="login-container">
+        <nav class="main-nav">
+            <div class="logo">
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js"></script>
+                <spline-viewer url="https://prod.spline.design/B6Z0qsiDXXq8DqOw/scene.splinecode"class="slogo"></spline-viewer></spline-viewer>
+            </div>
+            <ul>
+               
+                <li class="left-nav about-nav"><a href="home.html">About Us</a></li>
+                <li class="left-nav"><a href="index.html">Home</a></li>
+                <li class="left-nav"><a href="portfolio.html">Portfolio</a></li>
+                <li class="left-nav solution"><select name="solution" id="solution">
+                    <option value="programming">Solutions</option>
+                    <option value="math">Math</option>
+                    <option value="Python">Python</option>
+                    <option value="Networking">Networking</option>
+                </select></li>
+                <li class="Search-and-contact">
+                    <input type="text" class="search right" placeholder="Search">
+                    <button class="btn conatct-btn right"><a href="contact.html">Contact Us</a></button>
+                </li>
+                
+                
+            </ul>
+        </nav>
+        <div class="login-card">
+            <h1>Login Page</h1>
+            <form action="#" method="post" id="login-form">
+                <label for="email" class="login-label" id="l-email">Email</label>
+                <input type="email" name="email" id="login-email">
+                <label for="login-password">Password</label>
+                <input type="password" name="login-password" id="login-password">
+                <button type="submit" class="login-btn" id="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
