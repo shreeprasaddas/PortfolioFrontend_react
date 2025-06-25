@@ -1,0 +1,123 @@
+
+body{
+    background-color: black;
+    color:white;
+    margin: 4px;
+
+}
+.logo{
+
+    width: 188px;
+height: 53px;
+position: fixed;
+top: 3px;
+left: 22px;
+overflow: hidden;
+}
+
+    
+
+.about-nav{
+    margin-left: 300px;
+
+}
+.slogo{
+    position: absolute;
+    width: 486px;
+    /* border: 2px solid red; */
+    bottom: 56px;
+    left: -140px;
+    height: 128px;
+    top: -43px;
+}
+
+
+.main-nav{
+    background: rgba(50, 253, 224, 0);
+    border-radius: 4px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(28, 119, 105, 0.218);
+}
+.main-nav ul{
+    display: flex;
+    margin-left: 150px;
+    
+
+}
+.left-nav{
+    list-style: none;
+    margin-left: 25px;
+}
+.Search-and-contact{
+    margin-left: auto;
+    margin-right: 10px;
+    list-style: none;
+}
+.Search-and-contact .right{
+    margin-right: 16px;
+}
+spline-viewer{
+    z-index: -1;
+}
+
+.main-home-image-section{
+
+    width: 500px;
+    height: 465px;
+    overflow: hidden;
+    z-index: 1;
+    margin-left: 600px;
+    margin-top: 150px;
+    
+}
+.main-home-image-section img{
+    z-index: 2;
+    width: 420px;
+    
+    position: absolute;
+    top: 261px;
+    left: 1098px;
+    filter:drop-shadow(-17px 10px 1px rgba(0, 0, 0, 0.277))
+}
+.main-home-image-section{
+    margin-left: 497px;
+    height: 600px;
+    width: 700px;
+    /* border: 2px solid blue; */
+    position: relative;
+    margin-top: 99px;
+}
+.main-home-image-section spline-viewer{
+   
+    height: 700px;
+}
+
+.home-section{
+    display: flex;
+    flex-direction: row;
+}
+.main-home-content h1{
+    font-family: 'Metal Mania';font-size: 48px;
+    letter-spacing: 2px;
+}
+.main-home-content h1 span{
+    color: #0E8787;
+}
+.main-home-content {
+    margin-top: 200px;
+    margin-left: 54px;
+    /* border: 2px solid blue; */
+    width: 400px;
+}
+
+.donload-cv-btn{
+    background-color: transparent;
+    color: white;
+    border:1px solid #0E8787;
+    padding: 4px;
+    width: 155px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
