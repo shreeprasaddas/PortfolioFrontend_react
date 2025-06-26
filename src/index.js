@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import NavBar from './component/NavBar';
-import Background from './component/BackgroundHome';
-import HomeContainer from './component/home-container';
+
 
 
 

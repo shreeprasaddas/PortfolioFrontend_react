@@ -1,7 +1,6 @@
 import {React, useEffect, useState} from "react";
 import './second-home.css'
 import SecondHomeBackground from "./second-home-background";
-import isAMobile from "./DeviceSize";
 import ProfileIMG from './second-home-page-image.png';
 import { menuClose } from "./NavBar";
 import resume from './resume.pdf'

@@ -1,4 +1,4 @@
-import {useState,useEffect,React} from 'react'
+import {useState} from 'react'
 import { Link } from 'react-router-dom'
 import './nav.css';
 import MenuCard from './menu_card';
