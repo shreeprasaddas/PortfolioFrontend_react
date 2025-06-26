@@ -1,10 +1,6 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import React from 'react';
 import NavBar from './component/NavBar';
-import Background from './component/BackgroundHome';
-
-
 import Contact from './component/conatac-page';
 
 import './App.css'; 

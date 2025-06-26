@@ -28,7 +28,10 @@ export default function SecondHome() {
   const profile3d =     <div className="main-home-image-section">  <spline-viewer url="https://prod.spline.design/YSlJOskRtM4w2-IC/scene.splinecode" /></div>;
   useEffect(()=>{
     window.addEventListener("resize",checkScreen);
-  })
+    return () => {
+      window.removeEventListener("resize", checkScreen);
+    };
+  }, []);
   return (
     <>
     <SecondHomeBackground/>
