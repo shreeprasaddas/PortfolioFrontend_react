@@ -1,4 +1,3 @@
-import React from 'react';
 import './home_container.css'
 import { menuClose } from "./NavBar";
 
@@ -22,22 +21,22 @@ export default function HomeContainer(props) {
             <img src="Assets/logo/mongodb-svgrepo-com (1).png" alt="mongodb" />
           </div>
           <div className="skill-logo" id="skill-express-logo">
-            <img src="Assets/logo/express-svgrepo-com (2).png" alt="" />
+            <img src="Assets/logo/express-svgrepo-com (2).png" alt="skill-logo" />
           </div>
           <div className="skill-logo" id="skill-react-logo">
-              <img src="Assets/logo/react-svgrepo-com.png" alt="" />
+              <img src="Assets/logo/react-svgrepo-com.png" alt="logo" />
           </div>
           <div className="skill-logo" id="skill-nodejs-logo">
-                <img src="Assets/logo/node-js-svgrepo-com.png" alt="" />
+                <img src="Assets/logo/node-js-svgrepo-com.png" alt="logo" />
           </div>
           <div className="skill-logo" id="skill-python-logo">
-              <img src="Assets/logo/python-svgrepo-com.png" alt="" />
+              <img src="Assets/logo/python-svgrepo-com.png" alt="logo" />
           </div>
         </div>
         <button className="Download-cv-button">CONTACT ME</button>
       </div>
       <div className="home-image">
-        <img src="Assets/images/home-page.png" alt />
+        <img src="Assets/images/home-page.png" alt="home-image" />
       </div>
     </div>
   );

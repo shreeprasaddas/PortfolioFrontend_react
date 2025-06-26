@@ -1,5 +1,4 @@
 import {useState,useEffect,React} from 'react'
-import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom'
 import './nav.css';
 import MenuCard from './menu_card';
