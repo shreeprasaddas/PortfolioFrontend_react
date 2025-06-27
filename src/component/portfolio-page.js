@@ -4,7 +4,7 @@ import { menuClose } from "./NavBar";  // Assuming you have a NavBar component
 import fetchPortfolioData from "./fetchData/fetchPortfolio.js";
 
 
-const webUrl= "http://localhost:9000/";
+const webUrl= "https://nodejsbackend-wqib.onrender.com/" || "http://localhost:9000/";
 const Portfolio = () => {
     const [projects, setProjects] = useState([]);
 
