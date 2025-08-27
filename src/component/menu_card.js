@@ -14,7 +14,7 @@ export default function MenuCard(){
         <Link className="menu_option" to="/about">
           About Me
         </Link>
-        <Link className="menu_option" to="/login">
+        <Link className="menu_option" to="/admin">
           Login
         </Link>
         <Link className="menu_option" to="/portfolio">

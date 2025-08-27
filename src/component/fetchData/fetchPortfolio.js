@@ -1,6 +1,6 @@
 const fetchPortfolioData = async () => {
   try {
-      const res = await fetch("http://localhost:9000/getPortfolio");
+      const res = await fetch("http://localhost:5000/getPortfolio");
       
       if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
