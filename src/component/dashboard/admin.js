@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./admin.css";
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function Admin() {
   // Authentication state

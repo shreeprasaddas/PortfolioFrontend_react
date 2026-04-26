@@ -1,6 +1,7 @@
 const fetchPortfolioData = async () => {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   try {
-      const res = await fetch("http://localhost:5000/getPortfolio");
+      const res = await fetch(`${API_URL}/getPortfolio`);
       
       if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

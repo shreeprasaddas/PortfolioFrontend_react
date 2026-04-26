@@ -4,7 +4,7 @@ import { menuClose } from "./NavBar";  // Assuming you have a NavBar component
 import fetchPortfolioData from "./fetchData/fetchPortfolio.js";
 
 
-const webUrl = process.env.REACT_APP_API_URL || "http://localhost:5000/";
+const webUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
 const Portfolio = () => {
     const [projects, setProjects] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
