@@ -1,6 +1,6 @@
 
 async function getData() {
-    const url = "http://localhost:9000/api";
+    const url = process.env.REACT_APP_API_URL || "http://localhost:5000";
     try {
       const response = await fetch(url);
       if (!response.ok) {

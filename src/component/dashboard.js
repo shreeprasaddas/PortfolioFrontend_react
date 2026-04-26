@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [formData, setFormData] = useState({
@@ -14,7 +16,7 @@ const Dashboard = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/getPortfolio');
+      const response = await fetch(`${API_URL}/getPortfolio`);
       const data = await response.json();
       setPosts(data);
     } catch (error) {
@@ -45,11 +47,11 @@ const Dashboard = () => {
     }
 
     try {
-      let url = '/addPost';
+      let url = `${API_URL}/addPost`;
       let method = 'POST';
       
       if (isEditing) {
-        url = '/updatePost';
+        url = `${API_URL}/updatePost`;
         data.append('oldTittle', formData.oldTittle);
       }
 
@@ -83,7 +85,7 @@ const Dashboard = () => {
 
   const handleDelete = async (tittle) => {
     try {
-      const response = await fetch('/deletePost', {
+      const response = await fetch(`${API_URL}/deletePost`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tittle }),

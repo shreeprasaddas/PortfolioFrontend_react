@@ -2,9 +2,7 @@ import { React, useState, useEffect } from "react";
 import './solutions-page.css';
 import { menuClose } from "./NavBar";
 
-const webUrl = process.env.NODE_ENV === 'production' 
-    ? "https://nodejsbackend-wqib.onrender.com/" 
-    : "http://localhost:5000/";
+const webUrl = process.env.REACT_APP_API_URL || "http://localhost:5000/";
 
 const Solutions = () => {
     const [solutions, setSolutions] = useState([]);
@@ -34,18 +32,14 @@ const Solutions = () => {
             }
             
             const data = await response.json();
-            console.log("Fetched solutions:", data);
             
             if (data.success && data.data) {
                 setSolutions(data.data);
-                // Debug image URLs
-                data.data.forEach((solution, index) => {
+                // Pre-calculate image URLs if needed
+                data.data.forEach((solution) => {
                     const imageUrl = solution.imgLink?.startsWith('http') 
                         ? solution.imgLink 
                         : `${webUrl}${solution.imgLink?.startsWith('/') ? solution.imgLink.slice(1) : solution.imgLink}`;
-                    console.log(`Solution ${index} - ${solution.title}:`);
-                    console.log(`  - imgLink: ${solution.imgLink}`);
-                    console.log(`  - final URL: ${imageUrl}`);
                 });
             } else {
                 console.error("No solutions data found");

@@ -192,4 +192,49 @@ html{
     }
 }
 
+/* ── Form Validation & Toast ── */
+.field-error {
+    display: block;
+    color: #ff6b6b;
+    font-size: 0.78rem;
+    margin-top: 3px;
+    margin-left: 4px;
+}
 
+.input-error {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2) !important;
+}
+
+.form-toast {
+    margin: 16px auto;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 500px;
+    animation: slideIn 0.3s ease;
+}
+
+.form-toast--success {
+    background: rgba(76, 175, 80, 0.15);
+    border: 1px solid rgba(76, 175, 80, 0.4);
+    color: #81c784;
+}
+
+.form-toast--error {
+    background: rgba(244, 67, 54, 0.15);
+    border: 1px solid rgba(244, 67, 54, 0.4);
+    color: #e57373;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

@@ -4,9 +4,7 @@ import { menuClose } from "./NavBar";  // Assuming you have a NavBar component
 import fetchPortfolioData from "./fetchData/fetchPortfolio.js";
 
 
-const webUrl = process.env.NODE_ENV === 'production' 
-    ? "https://nodejsbackend-wqib.onrender.com/" 
-    : "http://localhost:5000/";
+const webUrl = process.env.REACT_APP_API_URL || "http://localhost:5000/";
 const Portfolio = () => {
     const [projects, setProjects] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -17,17 +15,12 @@ const Portfolio = () => {
             setIsLoading(true);
             try {
                 const projectList = await fetchPortfolioData();
-                console.log("Fetched projects:", projectList[0].Data);
-                console.log("webUrl:", webUrl);
                 
-                // Log each project's image URL construction
-                projectList[0].Data.forEach((project, index) => {
+                // Set default project image fallback if not present
+                projectList[0].Data.forEach((project) => {
                     const imageUrl = project.imgLink?.startsWith('http') 
                         ? project.imgLink 
                         : `${webUrl}${project.imgLink?.startsWith('/') ? project.imgLink.slice(1) : project.imgLink}`;
-                    console.log(`Project ${index} - ${project.tittle}:`);
-                    console.log(`  - imgLink: ${project.imgLink}`);
-                    console.log(`  - final URL: ${imageUrl}`);
                 });
                 
                 setProjects(projectList[0].Data);

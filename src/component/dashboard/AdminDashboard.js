@@ -952,6 +952,209 @@ function FileManagementSection() {
   );
 }
 
+// ────────────────────────────────────────────────────────────────
+// Site Config Section
+// ────────────────────────────────────────────────────────────────
+function SiteConfigSection() {
+  const { state, actions } = useDashboard();
+  const cfg = state.siteConfig || {};
+  const [activeConfigTab, setActiveConfigTab] = useState('contact');
+  const [saving, setSaving] = useState(false);
+  const [saveMsg, setSaveMsg] = useState('');
+
+  const [form, setForm] = useState({
+    email: '',
+    phone: '',
+    location: '',
+    name: '',
+    tagline: '',
+    bio: '',
+    cvLink: '',
+    github: '',
+    linkedin: '',
+    twitter: '',
+    instagram: '',
+    youtube: '',
+    facebook: ''
+  });
+
+  // Populate form when config loads
+  useEffect(() => {
+    if (cfg && cfg.email !== undefined) {
+      setForm({
+        email: cfg.email || '',
+        phone: cfg.phone || '',
+        location: cfg.location || '',
+        name: cfg.name || '',
+        tagline: cfg.tagline || '',
+        bio: cfg.bio || '',
+        cvLink: cfg.cvLink || '',
+        github: (cfg.socialLinks && cfg.socialLinks.github) || '',
+        linkedin: (cfg.socialLinks && cfg.socialLinks.linkedin) || '',
+        twitter: (cfg.socialLinks && cfg.socialLinks.twitter) || '',
+        instagram: (cfg.socialLinks && cfg.socialLinks.instagram) || '',
+        youtube: (cfg.socialLinks && cfg.socialLinks.youtube) || '',
+        facebook: (cfg.socialLinks && cfg.socialLinks.facebook) || ''
+      });
+    }
+  }, [state.siteConfig]);
+
+  const handleChange = (e) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    setSaveMsg('');
+    const payload = {
+      email: form.email,
+      phone: form.phone,
+      location: form.location,
+      name: form.name,
+      tagline: form.tagline,
+      bio: form.bio,
+      cvLink: form.cvLink,
+      socialLinks: {
+        github: form.github,
+        linkedin: form.linkedin,
+        twitter: form.twitter,
+        instagram: form.instagram,
+        youtube: form.youtube,
+        facebook: form.facebook
+      }
+    };
+    const result = await actions.updateSiteConfig(payload);
+    setSaving(false);
+    setSaveMsg(result.success ? '✅ Saved successfully!' : `❌ ${result.error}`);
+    setTimeout(() => setSaveMsg(''), 3000);
+  };
+
+  const inputStyle = {
+    width: '100%', padding: '10px 14px', background: 'rgba(255,255,255,0.07)',
+    border: '1px solid rgba(39,205,205,0.3)', borderRadius: '8px',
+    color: '#fff', fontSize: '14px', outline: 'none', boxSizing: 'border-box'
+  };
+  const labelStyle = { display: 'block', color: 'rgba(255,255,255,0.6)', fontSize: '12px', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px' };
+  const groupStyle = { marginBottom: '18px' };
+  const configTabs = ['contact', 'personal', 'cv', 'socials'];
+
+  return (
+    <div className="section-container">
+      <div className="section-header">
+        <h2>⚙️ Site Configuration</h2>
+        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', margin: '4px 0 0' }}>
+          Update your public contact details, bio, CV link and social media URLs.
+        </p>
+      </div>
+
+      {/* Sub-tabs */}
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '24px', flexWrap: 'wrap' }}>
+        {configTabs.map(t => (
+          <button
+            key={t}
+            onClick={() => setActiveConfigTab(t)}
+            style={{
+              padding: '8px 18px', borderRadius: '20px', fontSize: '13px', cursor: 'pointer',
+              border: activeConfigTab === t ? 'none' : '1px solid rgba(39,205,205,0.3)',
+              background: activeConfigTab === t ? 'linear-gradient(135deg,#27CDCD,#667eea)' : 'transparent',
+              color: activeConfigTab === t ? '#000' : 'rgba(255,255,255,0.7)',
+              fontWeight: activeConfigTab === t ? '700' : '400'
+            }}
+          >
+            {t.charAt(0).toUpperCase() + t.slice(1)}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '12px', padding: '24px', border: '1px solid rgba(39,205,205,0.15)' }}>
+        {activeConfigTab === 'contact' && (
+          <>
+            <div style={groupStyle}>
+              <label style={labelStyle}>Email Address</label>
+              <input name="email" style={inputStyle} value={form.email} onChange={handleChange} placeholder="your@email.com" />
+            </div>
+            <div style={groupStyle}>
+              <label style={labelStyle}>Phone Number</label>
+              <input name="phone" style={inputStyle} value={form.phone} onChange={handleChange} placeholder="+977 98XXXXXXXX" />
+            </div>
+            <div style={groupStyle}>
+              <label style={labelStyle}>Location</label>
+              <input name="location" style={inputStyle} value={form.location} onChange={handleChange} placeholder="Nepal" />
+            </div>
+          </>
+        )}
+
+        {activeConfigTab === 'personal' && (
+          <>
+            <div style={groupStyle}>
+              <label style={labelStyle}>Full Name</label>
+              <input name="name" style={inputStyle} value={form.name} onChange={handleChange} placeholder="Your Name" />
+            </div>
+            <div style={groupStyle}>
+              <label style={labelStyle}>Tagline / Title</label>
+              <input name="tagline" style={inputStyle} value={form.tagline} onChange={handleChange} placeholder="Full Stack Developer..." />
+            </div>
+            <div style={groupStyle}>
+              <label style={labelStyle}>Bio / Description</label>
+              <textarea
+                name="bio"
+                value={form.bio}
+                onChange={handleChange}
+                rows={4}
+                placeholder="A short description about yourself..."
+                style={{ ...inputStyle, resize: 'vertical' }}
+              />
+            </div>
+          </>
+        )}
+
+        {activeConfigTab === 'cv' && (
+          <>
+            <div style={groupStyle}>
+              <label style={labelStyle}>CV / Resume PDF Link</label>
+              <input name="cvLink" style={inputStyle} value={form.cvLink} onChange={handleChange} placeholder="https://drive.google.com/your-cv.pdf" />
+            </div>
+            {form.cvLink && (
+              <a href={form.cvLink} target="_blank" rel="noopener noreferrer" style={{ color: '#27CDCD', fontSize: '13px' }}>
+                🔗 Preview CV Link
+              </a>
+            )}
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '12px' }}>
+              Tip: Upload your CV to Google Drive and paste the shareable link here.
+            </p>
+          </>
+        )}
+
+        {activeConfigTab === 'socials' && (
+          <>
+            {[['github','GitHub'],['linkedin','LinkedIn'],['twitter','Twitter / X'],['instagram','Instagram'],['youtube','YouTube'],['facebook','Facebook']].map(([key, label]) => (
+              <div key={key} style={groupStyle}>
+                <label style={labelStyle}>{label} URL</label>
+                <input name={key} style={inputStyle} value={form[key]} onChange={handleChange} placeholder={`https://${key}.com/your-profile`} />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+
+      <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          style={{
+            padding: '12px 28px', background: 'linear-gradient(135deg,#27CDCD,#667eea)',
+            border: 'none', borderRadius: '8px', color: '#000', fontWeight: '700',
+            fontSize: '14px', cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.7 : 1
+          }}
+        >
+          {saving ? 'Saving...' : 'Save Changes'}
+        </button>
+        {saveMsg && <span style={{ fontSize: '14px', color: saveMsg.startsWith('✅') ? '#27CDCD' : '#ff6b6b' }}>{saveMsg}</span>}
+      </div>
+    </div>
+  );
+}
+
 // Main Dashboard Component
 function DashboardContent() {
   const { state, actions } = useDashboard();
@@ -970,6 +1173,8 @@ function DashboardContent() {
         return <ContactFormsSection />;
       case 'files':
         return <FileManagementSection />;
+      case 'config':
+        return <SiteConfigSection />;
       default:
         return <OverviewSection />;
     }
@@ -995,7 +1200,7 @@ function DashboardContent() {
 
       <nav className="dashboard-nav">
         <ul className="nav-tabs">
-          {['overview', 'projects', 'solutions', 'admins', 'contacts', 'files'].map(tab => (
+          {['overview', 'projects', 'solutions', 'admins', 'contacts', 'files', 'config'].map(tab => (
             <li
               key={tab}
               className={state.activeTab === tab ? 'nav-tab active' : 'nav-tab'}

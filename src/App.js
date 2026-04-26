@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './component/NavBar';
 import Contact from './component/conatac-page';
 import Footer from './component/footer';
+import ErrorBoundary from './component/ErrorBoundary';
 
 import './App.css'; 
 import SecondHome from './component/second-home';
@@ -13,22 +14,25 @@ import AdminRegister from './component/dashboard/AdminRegister';
 
 function App() {
   return (
-    <Router>
-      
+    <ErrorBoundary>
+      <Router>
         <NavBar />
         <Routes>
-          <Route path="/" element={<SecondHome />} />
-          <Route path="/about" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/"          element={<SecondHome />} />
+          <Route path="/about"     element={<Home />} />
+          <Route path="/contact"   element={<Contact />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/solutions" element={<Solutions />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+
+          {/* Public admin register */}
           <Route path="/admin/register" element={<AdminRegister />} />
+          
+          {/* Protected admin dashboard */}
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
         <Footer />
-      
-     
-    </Router>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

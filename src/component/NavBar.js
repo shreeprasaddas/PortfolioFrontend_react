@@ -35,18 +35,13 @@ export default function NavBar(){
      
      }
 
-    console.log("this is 2nd child element :"+document.getElementById('root').children[1]);
-  function checkScreen(){
-    if (window.innerWidth < 768) {
-      setMobile(true)
+  useEffect(() => {
+    function checkScreen() {
+      setMobile(window.innerWidth < 768);
     }
-    else {
-      setMobile(false)
-    }
-
-    
-  }
-  window.addEventListener("resize",checkScreen);
+    window.addEventListener('resize', checkScreen);
+    return () => window.removeEventListener('resize', checkScreen);
+  }, []); // runs once on mount, cleans up on unmount
 
   // Debounced search function
   const debouncedSearch = useRef(searchService.createDebouncedSearch(300)).current;
@@ -115,7 +110,7 @@ export default function NavBar(){
   
 
   
-  console.log(isMobile);
+
    const nav3dLogo= ()=>{
     return(
       <spline-viewer url="https://prod.spline.design/B6Z0qsiDXXq8DqOw/scene.splinecode" className="slogo" id="nav-logo" />
@@ -207,28 +202,49 @@ export default function NavBar(){
 
 
 
- const mobileNav=<ul>
- <Link to="/"className="left-nav"><li >Home</li></Link>
- 
- <Link to="/solutions" className="left-nav"><li>Solutions</li></Link>
- <li className="Search-and-contact">
-   <Link  to="/contact"><button className="btn conatct-btn right">Contact Us</button></Link>
- </li>
-</ul>;
-
-
+ const mobileNavPlaceholder = null; // Removed broken inline mobile links because we use MenuCard on mobile
 
     return(
     <>
     <nav className="main-nav">
-        <div className="logo">
-             {isMobile ? Menu: nav3dLogo()}
-              
-            </div>
-         
-            {isMobile ? mobileNav: desktopNav} 
-        </nav>
-        {triggerVal?<MenuCard/>:null}
+        <div className="logo" style={isMobile ? { display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' } : {}}>
+             {isMobile ? (
+               <>
+                 <Link to="/" style={{ textDecoration: 'none' }}>
+                   <span style={{color: '#27CDCD', fontWeight: 'bold', fontSize: '1.2rem', fontFamily: "'Inter', sans-serif"}}>PORTFOLIO</span>
+                 </Link>
+                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                   <Link to="/">
+                     <button style={{
+                       backgroundColor: 'transparent',
+                       color: 'white',
+                       border: 'none',
+                       padding: '6px',
+                       fontSize: '12px',
+                       cursor: 'pointer',
+                       textDecoration: 'none'
+                     }}>Home</button>
+                   </Link>
+                   <Link to="/contact">
+                     <button style={{
+                       backgroundColor: 'transparent',
+                       color: '#27CDCD',
+                       border: '1px solid rgba(39, 205, 205, 0.5)',
+                       borderRadius: '6px',
+                       padding: '6px 10px',
+                       fontSize: '12px',
+                       cursor: 'pointer',
+                       textDecoration: 'none'
+                     }}>Contact</button>
+                   </Link>
+                   {Menu}
+                 </div>
+               </>
+             ) : nav3dLogo()}
+        </div>
+        {!isMobile && desktopNav} 
+    </nav>
+        {triggerVal?<MenuCard closeMenu={() => setTrig(false)} />:null}
         </>
     )
 }

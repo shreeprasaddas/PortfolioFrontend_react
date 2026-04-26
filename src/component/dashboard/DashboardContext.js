@@ -36,7 +36,12 @@ const initialState = {
   // Files
   uploadedFiles: [],
   filesLoading: false,
-  filesError: null
+  filesError: null,
+
+  // Site Config
+  siteConfig: null,
+  siteConfigLoading: false,
+  siteConfigError: null
 };
 
 // Action types
@@ -82,7 +87,12 @@ const actionTypes = {
   SET_FILES: 'SET_FILES',
   ADD_FILE: 'ADD_FILE',
   DELETE_FILE: 'DELETE_FILE',
-  SET_FILES_ERROR: 'SET_FILES_ERROR'
+  SET_FILES_ERROR: 'SET_FILES_ERROR',
+
+  // Site Config
+  SET_SITE_CONFIG_LOADING: 'SET_SITE_CONFIG_LOADING',
+  SET_SITE_CONFIG: 'SET_SITE_CONFIG',
+  SET_SITE_CONFIG_ERROR: 'SET_SITE_CONFIG_ERROR'
 };
 
 // Reducer
@@ -258,6 +268,16 @@ function dashboardReducer(state, action) {
         filesLoading: false 
       };
 
+    // Site Config
+    case actionTypes.SET_SITE_CONFIG_LOADING:
+      return { ...state, siteConfigLoading: action.payload };
+
+    case actionTypes.SET_SITE_CONFIG:
+      return { ...state, siteConfig: action.payload, siteConfigLoading: false, siteConfigError: null };
+
+    case actionTypes.SET_SITE_CONFIG_ERROR:
+      return { ...state, siteConfigError: action.payload, siteConfigLoading: false };
+
     default:
       return state;
   }
@@ -273,7 +293,7 @@ export function DashboardProvider({ children }) {
   // Check authentication on mount
   useEffect(() => {
     const checkAuth = async () => {
-      const isAuth = apiService.isAuthenticated();
+      const isAuth = await apiService.verifyToken();
       dispatch({ type: actionTypes.SET_AUTHENTICATED, payload: isAuth });
       
       if (isAuth) {
@@ -396,23 +416,42 @@ export function DashboardProvider({ children }) {
     // Contact forms actions
     async loadContactForms() {
       dispatch({ type: actionTypes.SET_CONTACT_FORMS_LOADING, payload: true });
-      
       try {
-        // For now, using placeholder data as the backend endpoint doesn't exist
-        const placeholderData = [
-          {
-            _id: '1',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'john@example.com',
-            phone: '+1234567890',
-            message: 'Interested in your services',
-            date: new Date().toISOString()
-          }
-        ];
-        dispatch({ type: actionTypes.SET_CONTACT_FORMS, payload: placeholderData });
+        const data = await apiService.makeRequest('/contact-forms');
+        dispatch({ type: actionTypes.SET_CONTACT_FORMS, payload: Array.isArray(data) ? data : [] });
       } catch (error) {
         dispatch({ type: actionTypes.SET_CONTACT_FORMS_ERROR, payload: apiService.handleApiError(error) });
+      }
+    },
+
+    async deleteContactForm(id) {
+      try {
+        await apiService.makeRequest(`/contact-forms/${id}`, { method: 'DELETE' });
+        dispatch({ type: actionTypes.DELETE_CONTACT_FORM, payload: id });
+        return { success: true };
+      } catch (error) {
+        return { success: false, error: apiService.handleApiError(error) };
+      }
+    },
+
+    // Site Config actions
+    async loadSiteConfig() {
+      dispatch({ type: actionTypes.SET_SITE_CONFIG_LOADING, payload: true });
+      try {
+        const config = await apiService.getSiteConfig();
+        dispatch({ type: actionTypes.SET_SITE_CONFIG, payload: config });
+      } catch (error) {
+        dispatch({ type: actionTypes.SET_SITE_CONFIG_ERROR, payload: apiService.handleApiError(error) });
+      }
+    },
+
+    async updateSiteConfig(data) {
+      try {
+        const result = await apiService.updateSiteConfig(data);
+        dispatch({ type: actionTypes.SET_SITE_CONFIG, payload: result.config });
+        return { success: true };
+      } catch (error) {
+        return { success: false, error: apiService.handleApiError(error) };
       }
     },
 
@@ -433,6 +472,7 @@ export function DashboardProvider({ children }) {
       actions.loadProjects(),
       actions.loadAdminUsers(),
       actions.loadContactForms(),
+      actions.loadSiteConfig(),
       actions.loadStats()
     ]);
   };

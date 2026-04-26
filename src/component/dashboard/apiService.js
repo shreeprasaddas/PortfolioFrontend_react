@@ -76,8 +76,13 @@ class ApiService {
     const token = this.getAuthToken();
     if (!token) return false;
     
-    // You might want to implement a token verification endpoint
-    return true;
+    try {
+      const response = await this.makeRequest('/login/verify', { method: 'GET' });
+      return response && response.validUser === true;
+    } catch (error) {
+      this.logout();
+      return false;
+    }
   }
 
   // Project APIs
@@ -263,6 +268,21 @@ class ApiService {
     }
     
     return error.message || 'An unexpected error occurred.';
+  }
+
+  // ─── Site Config APIs ───────────────────────────────────────────────────────
+
+  /** Public: fetch site-wide dynamic settings (email, phone, CV link, socials…) */
+  async getSiteConfig() {
+    return this.makeRequest('/config');
+  }
+
+  /** Protected: admin updates the site-wide settings */
+  async updateSiteConfig(data) {
+    return this.makeRequest('/config', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
   }
 }
 

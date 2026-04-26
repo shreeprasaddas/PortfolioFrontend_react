@@ -1,9 +1,7 @@
 // Search API Service
 class SearchService {
     constructor() {
-        this.baseURL = process.env.NODE_ENV === 'production' 
-            ? 'https://nodejsbackend-wqib.onrender.com' 
-            : 'http://localhost:5000';
+        this.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
     }
 
     async searchProjects(query, options = {}) {
