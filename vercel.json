@@ -1,20 +1,11 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "build",
+  "framework": "create-react-app",
   "env": {
     "REACT_APP_API_URL": "https://portfolio-backend-s.vercel.app"
   },
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
