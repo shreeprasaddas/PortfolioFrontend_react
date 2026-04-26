@@ -1,7 +1,7 @@
 // Search API Service
 class SearchService {
     constructor() {
-        this.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+        this.baseURL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/+$/, "");
     }
 
     async searchProjects(query, options = {}) {

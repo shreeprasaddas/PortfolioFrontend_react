@@ -3,7 +3,7 @@ import './footer.css';
 import { menuClose } from "./NavBar";
 import { Link } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/+$/, "");
 
 export default function Footer(){
     const currentYear = new Date().getFullYear();

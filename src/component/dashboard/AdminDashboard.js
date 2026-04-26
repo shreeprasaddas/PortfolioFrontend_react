@@ -4,7 +4,7 @@ import { DashboardProvider, useDashboard } from './DashboardContext';
 import './admin.css';
 
 // API URL configuration
-const webUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const webUrl = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/+$/, "");
 
 // Login Component
 function LoginForm() {

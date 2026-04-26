@@ -1,5 +1,5 @@
 const fetchPortfolioData = async () => {
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/+$/, "");
   try {
       const res = await fetch(`${API_URL}/getPortfolio`);
       

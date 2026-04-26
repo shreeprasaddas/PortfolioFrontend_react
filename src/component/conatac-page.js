@@ -3,7 +3,7 @@ import './contact-page.css'
 import { menuClose } from "./NavBar";
 import ContactBackground from "./contact-background";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000").replace(/\/+$/, "");
 
 const initialForm = {
   name: '',

@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import './solutions-page.css';
 import { menuClose } from "./NavBar";
 
-const webUrl = process.env.REACT_APP_API_URL || "http://localhost:5000/";
+const webUrl = (process.env.REACT_APP_API_URL || "http://localhost:5000/").replace(/\/+$/, "");
 
 const Solutions = () => {
     const [solutions, setSolutions] = useState([]);
