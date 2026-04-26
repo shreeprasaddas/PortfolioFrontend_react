@@ -6,12 +6,27 @@ class ApiService {
     this.baseURL = API_BASE_URL;
   }
 
-  // Helper method to get auth token from cookies
+  // Helper method to get auth token - checks localStorage first, then cookie as fallback
   getAuthToken() {
+    // Primary: localStorage (works cross-domain reliably)
+    const localToken = localStorage.getItem('admin_token');
+    if (localToken) return localToken;
+
+    // Fallback: cookie (works when same-origin or sameSite:none is supported)
     return document.cookie
       .split('; ')
       .find(row => row.startsWith('uid='))
-      ?.split('=')[1];
+      ?.split('=')[1] || null;
+  }
+
+  // Save token to localStorage after login
+  saveAuthToken(token) {
+    localStorage.setItem('admin_token', token);
+  }
+
+  // Clear token from localStorage on logout
+  clearAuthToken() {
+    localStorage.removeItem('admin_token');
   }
 
   // Helper method to make requests with proper headers
@@ -31,7 +46,7 @@ class ApiService {
 
     const config = {
       ...options,
-      credentials: 'include', // Include cookies in requests
+      credentials: 'include', // Include cookies in requests (still useful when cookies work)
       headers: {
         ...defaultHeaders,
         ...options.headers,
@@ -59,10 +74,17 @@ class ApiService {
 
   // Authentication APIs
   async login(credentials) {
-    return this.makeRequest('/login', {
+    const result = await this.makeRequest('/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
     });
+
+    // After successful login, store token in localStorage so it's available cross-domain
+    if (result && result.token) {
+      this.saveAuthToken(result.token);
+    }
+
+    return result;
   }
 
   async register(userData) {
@@ -240,7 +262,10 @@ class ApiService {
 
   // Utility methods
   logout() {
+    this.clearAuthToken();
     document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // Also clear with cross-domain cookie settings
+    document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=None; Secure";
   }
 
   isAuthenticated() {
