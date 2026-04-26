@@ -4,8 +4,5 @@
   "framework": "create-react-app",
   "env": {
     "REACT_APP_API_URL": "https://portfolio-backend-s.vercel.app"
-  },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  }
 }
